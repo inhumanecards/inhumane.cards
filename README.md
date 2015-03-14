@@ -1,4 +1,4 @@
-# cardsagainsthumanity
+# inhumane-cards
 A Cards Against Humanity clone
 
 ## Frontend Technologies
