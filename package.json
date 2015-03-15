@@ -1,9 +1,33 @@
 {
+  "name": "inhumane.cards",
+  "version": "0.0.0",
+  "description": "Cards Against Humanity Online",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ckknight/cardsagainsthumanity.git"
+  },
+  "author": "ckknight/kingles/asilluron",
+  "license": "private",
   "jspm": {
     "directories": {
       "baseURL": "src",
       "lib": "src",
       "packages": "src/jspm_packages"
     }
+  },
+  "bugs": {
+    "url": "https://github.com/ckknight/cardsagainsthumanity/issues"
+  },
+  "homepage": "https://github.com/ckknight/cardsagainsthumanity",
+  "dependencies": {
+    "handlebars": "^3.0.0",
+    "hapi": "^8.4.0",
+    "joi": "^6.0.8",
+    "mongoose": "^3.8.25"
   }
 }
