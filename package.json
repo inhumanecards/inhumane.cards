@@ -27,7 +27,11 @@
   "dependencies": {
     "handlebars": "^3.0.0",
     "hapi": "^8.4.0",
+    "hiredis": "^0.3.0",
     "joi": "^6.0.8",
-    "mongoose": "^3.8.25"
+    "mongoose": "^3.8.25",
+    "q": "^1.4.0",
+    "redis": "^0.12.1",
+    "redis-url": "^1.2.0"
   }
 }
