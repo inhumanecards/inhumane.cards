@@ -10,3 +10,15 @@ A Cards Against Humanity clone
 * Radium (for CSS)
 * Babel (transpiling)
 * jspm (package management)
+
+## Testing
+### Socket Integration Tests
+```
+foreman start
+mocha test/sockets_integration.js
+```
+
+## Environment Variables
+We recommmend running a local server instance with [foreman](https://github.com/ddollar/foreman) which simply uses a `.env` file in the root directory to specificy environmental variables.
+### Required
+* REDIS_URL=redis://`username`:`password`@`hostname`:`port`

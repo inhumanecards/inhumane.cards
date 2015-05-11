@@ -1,0 +1,5 @@
+machine:
+  post:
+    - foreman start:
+        background: true
+    - sleep 5
