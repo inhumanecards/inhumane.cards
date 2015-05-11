@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/inhumanecards/inhumane.cards.svg?style=shield)](https://circleci.com/gh/inhumanecards/inhumane.cards)
+
 # inhumane-cards
 A Cards Against Humanity clone
 
