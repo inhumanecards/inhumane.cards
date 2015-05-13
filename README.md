@@ -14,10 +14,15 @@ A Cards Against Humanity clone
 * jspm (package management)
 
 ## Testing
-### Socket Integration Tests
+### TDD
+```
+mocha test/spec --recursive --watch
+```
+
+### Integration Tests
 ```
 foreman start
-mocha test/sockets_integration.js
+mocha test/spec --recursive
 ```
 
 ## Environment Variables
