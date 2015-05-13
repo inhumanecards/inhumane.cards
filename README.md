@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/inhumanecards/inhumane.cards.svg?style=shield)](https://circleci.com/gh/inhumanecards/inhumane.cards)
+[![Circle CI](https://circleci.com/gh/inhumanecards/inhumane.cards.svg?style=shield)](https://circleci.com/gh/inhumanecards/inhumane.cards) [![Stories in Ready](https://badge.waffle.io/inhumanecards/inhumane.cards.png?label=ready&title=Ready)](http://waffle.io/inhumanecards/inhumane.cards)
 
 # inhumane-cards
 A Cards Against Humanity clone
