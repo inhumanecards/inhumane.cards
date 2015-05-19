@@ -3,10 +3,29 @@ var Path = require('path');
 var redisURL = require("redis-url").parse(process.env.REDIS_URL);
 var redis = require("redis");
 var q = require("q");
+var mongoose = require('mongoose');
+
+/*
+ * Setup Mongoose
+ */
+var dbDeferal = q.defer();
+var dbReady = dbDeferal.promise;
+var db = mongoose.createConnection(process.env.MONGOLAB_URI);
+db.on('error', function (err) {
+    dbDeferal.reject(err);
+});
+
+db.on('open', function () {
+    dbDeferal.resolve();
+});
+/*
+ * End mongoose setup
+ */
 
 //Port must be an integer for HAPI
 var numPort = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 var server = new Hapi.Server();
+
 
 server.views({
     engines: {
@@ -17,7 +36,9 @@ server.views({
     partialsPath: './views/partials'
 });
 
-server.connection({ port: numPort });
+server.connection({
+    port: numPort
+});
 
 server.route({
     method: 'GET',
@@ -38,12 +59,12 @@ server.route({
 });
 
 /*
-* Setup Redis Client
-*/
+ * Setup Redis Client
+ */
 
 var redisClient = redis.createClient(Number(redisURL.port), redisURL.hostname, {});
 
-if(redisURL.password) {
+if (redisURL.password) {
     redisClient.auth(redisURL.password);
 }
 
@@ -60,32 +81,37 @@ redisClient.on('error', function (error) {
 
 
 /*
-* Setup socket events plugin
-*/
+ * Setup socket events plugin
+ */
 var gameEventsDeferal = q.defer();
 var gameEventsReady = gameEventsDeferal.promise;
 
 server.register({
-        register: require('./game_events'),
-        options: {
-            redis: {
-                hostname: redisURL.hostname,
-                password: redisURL.password,
-                port: redisURL.port
-            }
+    register: require('./game_events'),
+    options: {
+        redis: {
+            hostname: redisURL.hostname,
+            password: redisURL.password,
+            port: redisURL.port
         }
-    }, function (err) {
-        if (err) {
-            gameEventsDeferal.reject(err);
-        }
-        else{
-            gameEventsDeferal.resolve();
+    }
+}, function (err) {
+    if (err) {
+        gameEventsDeferal.reject(err);
+    } else {
+        gameEventsDeferal.resolve();
     }
 });
 
 
 // Wait for dependent actions and kickoff the server
-q.all([redisReady, gameEventsReady]).then(function () {
+q.all([redisReady, gameEventsReady, dbReady]).then(function () {
+    var api = require("./api")(db);
+
+    api.forEach(function (route) {
+        server.route(route);
+    });
+
     server.start(function () {
         console.log("Redis client connect @ port ", redisClient.server_info.tcp_port);
         console.log("Server started @ " + server.info.uri);
@@ -95,8 +121,8 @@ q.all([redisReady, gameEventsReady]).then(function () {
 });
 
 /*
-* Server shutdown
-*/
+ * Server shutdown
+ */
 var shutdownProcess = function () {
     redisClient.end(); //Kills all clients in their tracks
     server.stop(function () {
