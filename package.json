@@ -15,9 +15,15 @@
   "license": "private",
   "jspm": {
     "directories": {
-      "baseURL": "src",
-      "lib": "src",
-      "packages": "src/jspm_packages"
+      "baseURL": "client"
+    },
+    "dependencies": {
+      "color": "npm:color@^0.8.0",
+      "flux": "npm:flux@^2.0.1",
+      "immutable": "npm:immutable@^3.6.4",
+      "jsx": "github:floatdrop/plugin-jsx@^1.1.0",
+      "radium": "npm:radium@^0.10.0",
+      "react": "npm:react@^0.13.3"
     }
   },
   "bugs": {
@@ -29,5 +35,10 @@
     "hapi": "^8.4.0",
     "joi": "^6.0.8",
     "mongoose": "^3.8.25"
+  },
+  "devDependencies": {
+    "babel-eslint": "^3.1.5",
+    "gulp-cached": "^1.1.0",
+    "gulp-shell": "^0.4.1"
   }
 }
